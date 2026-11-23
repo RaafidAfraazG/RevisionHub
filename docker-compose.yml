@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: revisionhub
+      POSTGRES_USER: revisionhub
+      POSTGRES_PASSWORD: revisionhub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U revisionhub -d revisionhub"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - uploads_data:/app/uploads
+    environment:
+      DATABASE_URL: postgresql+psycopg://revisionhub:revisionhub@postgres:5432/revisionhub
+      SECRET_KEY: ${SECRET_KEY:-revisionhub-local-demo-only-change-before-deploying}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+  frontend:
+    build: ./frontend
+    environment:
+      API_PROXY_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  uploads_data:

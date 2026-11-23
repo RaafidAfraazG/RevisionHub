@@ -1,0 +1,45 @@
+{
+  "measured_at_utc": "2026-11-23T14:38:54.756594+00:00",
+  "environment": {
+    "os": "Windows 11",
+    "python": "3.12.13",
+    "base_url": "http://127.0.0.1:8001",
+    "transport": "HTTP/1.1 loopback, sequential persistent client; 10 warmups per route",
+    "dataset": "Fresh seed, isolated SQLite database; complete row snapshots identical after two runs"
+  },
+  "counts": {
+    "parts": 51,
+    "revisions": 81,
+    "bom_lines": 119,
+    "ecrs": 10,
+    "api_endpoints": 26,
+    "tests": 8,
+    "backend_loc": 1705,
+    "frontend_loc": 1047,
+    "deepest_bom_child_edges": 3,
+    "unique_3d_models": 8,
+    "parts_with_3d": 15
+  },
+  "loc_definition": "Physical lines including blanks/comments; backend/**/*.py excluding tests and caches; frontend/src/**/*.{ts,tsx,css}; scripts excluded.",
+  "latency_ms": {
+    "bom-tree": {
+      "path": "/api/revisions/32/bom-tree",
+      "requests": 200,
+      "p50": 9.98,
+      "p95": 18.21
+    },
+    "compare": {
+      "path": "/api/revisions/32/compare/57",
+      "requests": 200,
+      "p50": 14.78,
+      "p95": 32.52
+    },
+    "dashboard": {
+      "path": "/api/dashboard",
+      "requests": 200,
+      "p50": 10.26,
+      "p95": 17.79
+    }
+  },
+  "seed_idempotent": true
+}
